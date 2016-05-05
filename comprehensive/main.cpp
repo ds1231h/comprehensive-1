@@ -89,14 +89,14 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			switch(LOWORD(wParam))
 			{
 			case ID_FILE_mySAVE:
-				if (!MySaveData)
+				if (!MySaveData())
 				{
 					MessageBox(hWnd, TEXT("save data error!"), TEXT("error"), TRUE);
 				}
 				return 0;
 
 			case ID_FILE_myLOAD:
-				if (!MyLoadData)
+				if (!MyLoadData())
 				{
 					MessageBox(hWnd, TEXT("load data error!"), TEXT("error"), TRUE);
 				}

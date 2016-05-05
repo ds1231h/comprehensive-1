@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include "struct.h"
 
-MYLINE glines[8] = 
+MYLINE glines[128] = 
 {
 	{{25, 25}, {75, 75}},
 	{{75, 25}, {25, 75}},
+	{NULL}
 };
 
 // 管理一类图元:线
@@ -23,7 +24,7 @@ void DrawLineWM(HDC hdc, char* pBuff, int numLineWM)
 
 BOOL MySaveData(void)
 {
-	FILE* fp = fopen("E:\VSworksapce\comprehensive\comprehensive\a.bin", "w+b");
+	FILE* fp = fopen("E:\\VSworksapce\\comprehensive 1\\comprehensive\\a.bin", "ab");
 
 	if (fp != NULL)
 	{
@@ -38,7 +39,7 @@ BOOL MySaveData(void)
 
 BOOL MyLoadData(void)
 {
-	FILE* fp = fopen("E:\VSworksapce\comprehensive\comprehensive\a.bin", "rb");
+	FILE* fp = fopen("E:\\VSworksapce\\comprehensive 1\\comprehensive\\a.bin", "rb");
 
 	if (fp != NULL)
 	{
