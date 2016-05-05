@@ -86,11 +86,14 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_COMMAND:
 		if (lParam == 0)
 		{
+			switch(LOWORD(wParam))
+			{
 			case ID_FILE_mySAVE:
 				return 0;
 
 			case ID_FILE_myLOAD:
 				return 0;
+			}
 		}
 
 	case WM_DESTROY:

@@ -20,6 +20,7 @@ void DrawLineWM(HDC hdc, char* pBuff, int numLineWM)
 	} while (pBuff[36] != 0);
 }
 
+
 BOOL MySaveData(void)
 {
 	FILE* fp = fopen("E:\VSworksapce\comprehensive\comprehensive\a.bin", "w+b");
