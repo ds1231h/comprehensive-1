@@ -81,7 +81,7 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_CREATE:
 		giCount = 2;
 		gLoad =FALSE;
-
+		return 0;
 
 	case WM_COMMAND:
 		if (lParam == 0)
@@ -89,9 +89,17 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			switch(LOWORD(wParam))
 			{
 			case ID_FILE_mySAVE:
+				if (!MySaveData)
+				{
+					MessageBox(hWnd, TEXT("save data error!"), TEXT("error"), TRUE);
+				}
 				return 0;
 
 			case ID_FILE_myLOAD:
+				if (!MyLoadData)
+				{
+					MessageBox(hWnd, TEXT("load data error!"), TEXT("error"), TRUE);
+				}
 				return 0;
 			}
 		}

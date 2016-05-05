@@ -5,6 +5,8 @@
 
 extern int giCount;
 extern BOOL gLoad;
+extern BOOL MySaveData(void);
+extern BOOL MyLoadData(void);
 
 typedef struct Myline
 {
