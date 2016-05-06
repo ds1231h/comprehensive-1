@@ -3,6 +3,7 @@
 #include <windowsx.h>
 #include "resource.h"
 
+extern int goCount;
 extern int giCount;
 extern BOOL gLoad;
 extern BOOL MySaveData(void);

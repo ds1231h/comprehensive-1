@@ -4,6 +4,7 @@ BOOL InitWindow(HINSTANCE hInstance, int nCmdShow);
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 int giCount;
+int goCount;
 BOOL gLoad;
 
 int WINAPI WinMain(HINSTANCE hInstance,         //µ±Ç°ÊµÀý¾ä±ú
@@ -79,7 +80,7 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	switch (message)
 	{
 	case WM_CREATE:
-		giCount = 2;
+		goCount = 2;
 		gLoad =FALSE;
 		return 0;
 
