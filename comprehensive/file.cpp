@@ -7,6 +7,18 @@ MYLINE glines[1024] =
 	{{75, 25}, {25, 75}, RGB(125, 64, 35), 0, PS_DASH},
 };
 
+MYELLIPSE gellipse[1024] = 
+{
+	{{25, 25}, RGB(125, 64, 35), RGB(125, 64, 35), 0, PS_SOLID},
+	{{75, 75}, RGB(125, 64, 35), RGB(125, 64, 35), 0, PS_SOLID},
+};
+
+MYRECTANGLE grectangle[1024] = 
+{
+	{{25, 25}, RGB(125, 64, 35), RGB(125, 64, 35), 0, PS_SOLID},
+	{{75, 75}, RGB(125, 64, 35), RGB(125, 64, 35), 0, PS_SOLID},
+};
+
 MYLINE gNewlines[1024] = {NULL};
 
 // 管理一类图元:线

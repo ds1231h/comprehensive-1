@@ -2,7 +2,11 @@
 
 BOOL InitWindow(HINSTANCE hInstance, int nCmdShow);
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
-
+void DrawMyline(HDC hdc, PMYLINE pLine);
+void DrawMyLines(HDC hdc, PMYLINE pLines, int iCount);
+void DrawMyEllipse(HDC hdc, PELLIPSE pEllipse);
+void DrawMyRectangle(HDC hdc, PRECTANGLE pRectangle);
+void DrawLineWM(HDC hdc, char* pBuff, int numLineWM);
 int giCount;
 int goCount;
 BOOL gLoad;
@@ -76,6 +80,9 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	HDC         hdc;
 	PAINTSTRUCT ps;
 	RECT        rect;
+	extern MYLINE glines[1024];
+	extern MYELLIPSE gellipse[1024];
+	extern MYRECTANGLE grectangle[1024];
 
 	switch (message)
 	{
@@ -102,8 +109,35 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 					MessageBox(hWnd, TEXT("load data error!"), TEXT("error"), TRUE);
 				}
 				return 0;
+
+			case ID_DRAW_DRAWMYLINE:
+				{
+					DrawMyline(hdc, glines);
+				}
+
+			case ID_DRAW_DRAWMYLINES:
+				{
+					DrawMyLines(hdc, glines, 2);
+				}
+
+			case ID_DRAW_DRAWMYELLIPSE:
+				{
+					DrawMyEllipse(hdc, gellipse);
+				}
+
+			case ID_DRAW_DRAWMYRECTANGLE:
+				{
+					DrawMyRectangle(hdc, grectangle);
+				}
 			}
 		}
+
+	case WM_PAINT:
+		hdc=BeginPaint (hWnd, &ps);
+		GetClientRect (hWnd, &rect);
+		
+		EndPaint ( hWnd, &ps ); 
+		return 0;
 
 	case WM_DESTROY:
 		PostQuitMessage(0);
