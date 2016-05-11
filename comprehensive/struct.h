@@ -3,17 +3,22 @@
 #include <windowsx.h>
 #include "resource.h"
 
+#define DRAW_LINE	1
+#define DRAW_RECT	2
+#define DRAW_ELIP	3
 
 extern int goCount;
 extern int giCount;
 extern BOOL gLoad;
 extern BOOL MySaveData(void);
 extern BOOL MyLoadData(void);
+extern COLORREF GetMyColor(HWND);
 
 typedef struct Myline
 {
 	POINT		ptS;		// 起始坐标
 	POINT		ptE;		// 终止坐标
+//	LOGPEN		Lpen;
 	COLORREF	color;		// 或用LOGPEN
 	int			penWidth;
 	int			penStyle;

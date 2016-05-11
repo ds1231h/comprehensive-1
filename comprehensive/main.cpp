@@ -83,6 +83,9 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	extern MYLINE glines[1024];
 	extern MYELLIPSE gellipse[1024];
 	extern MYRECTANGLE grectangle[1024];
+	static int drawFct = ID_DRAW_DRAWMYLINE;
+	int		gDrawMode;
+	HMENU hMenu;
 
 	switch (message)
 	{
@@ -92,6 +95,8 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		return 0;
 
 	case WM_COMMAND:
+		hMenu = GetMenu(hWnd);
+
 		if (lParam == 0)
 		{
 			switch(LOWORD(wParam))
@@ -111,31 +116,83 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				return 0;
 
 			case ID_DRAW_DRAWMYLINE:
-				{
-					DrawMyline(hdc, glines);
-				}
-
 			case ID_DRAW_DRAWMYLINES:
-				{
-					DrawMyLines(hdc, glines, 2);
-				}
-
+				gDrawMode = 1;
 			case ID_DRAW_DRAWMYELLIPSE:
-				{
-					DrawMyEllipse(hdc, gellipse);
-				}
-
+				gDrawMode = 3;
 			case ID_DRAW_DRAWMYRECTANGLE:
-				{
-					DrawMyRectangle(hdc, grectangle);
-				}
+				gDrawMode = 2;
+				CheckMenuItem(hMenu, drawFct, MF_UNCHECKED);
+				drawFct = LOWORD(wParam);
+				CheckMenuItem(hMenu, drawFct, MF_UNCHECKED);
+				InvalidateRect(hWnd, NULL, TRUE);
+				return 0;
+
+			case ID_SETTING_PEN:
+				
+				return 0;
 			}
 		}
+
+		// 取得开始位置与终止位置坐标
+	case WM_LBUTTONDOWN:
+		if(gDrawMode == DRAW_LINE)
+		{
+			glines->ptS.x = GET_X_LPARAM(lParam);
+			glines->ptS.y = GET_Y_LPARAM(lParam);
+		}
+		else if (gDrawMode == DRAW_RECT)
+		{
+			grectangle->rect.left = GET_X_LPARAM(lParam);
+			grectangle->rect.top = GET_Y_LPARAM(lParam);
+		}
+		else if (gDrawMode == DRAW_ELIP)
+		{
+			gellipse->rect.left = GET_X_LPARAM(lParam);
+			gellipse->rect.top = GET_Y_LPARAM(lParam);
+		}
+		return 0;
+
+	case WM_LBUTTONUP:
+		if(gDrawMode == DRAW_LINE)
+		{
+			glines->ptE.x = GET_X_LPARAM(lParam);
+			glines->ptE.y = GET_Y_LPARAM(lParam);
+		}
+		else if (gDrawMode == DRAW_RECT)
+		{
+			grectangle->rect.right = GET_X_LPARAM(lParam);
+			grectangle->rect.bottom = GET_Y_LPARAM(lParam);
+		}
+		else if (gDrawMode == DRAW_ELIP)
+		{
+			gellipse->rect.right = GET_X_LPARAM(lParam);
+			gellipse->rect.bottom = GET_Y_LPARAM(lParam);
+		}
+		return 0;
 
 	case WM_PAINT:
 		hdc=BeginPaint (hWnd, &ps);
 		GetClientRect (hWnd, &rect);
 		
+		switch(drawFct)
+		{
+		case ID_DRAW_DRAWMYLINE:
+			
+			DrawMyline(hdc, glines);
+
+		case ID_DRAW_DRAWMYLINES:
+			
+			DrawMyLines(hdc, glines, goCount);
+
+		case ID_DRAW_DRAWMYELLIPSE:
+			
+			DrawMyEllipse(hdc, gellipse);
+
+		case ID_DRAW_DRAWMYRECTANGLE:
+			
+			DrawMyRectangle(hdc, grectangle);
+		}
 		EndPaint ( hWnd, &ps ); 
 		return 0;
 

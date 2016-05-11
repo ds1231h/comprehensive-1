@@ -31,13 +31,13 @@ void DrawMyEllipse(HDC hdc, PELLIPSE pEllipse)
 	DeleteObject(hBrush);
 }
 
-void DrawMyRectangle(HDC hdc, PRECTANGLE pRectangle)
+void DrawMyRectangle(HDC hdc, PRECTANGLE grectangle)
 {
-	HPEN hPen = CreatePen(pRectangle->brushStyle, pRectangle->brushWidth, pRectangle->lineColor);
+	HPEN hPen = CreatePen(grectangle->brushStyle, grectangle->brushWidth, grectangle->lineColor);
 	HPEN hPenOld = (HPEN)SelectObject(hdc, hPen);
-	HBRUSH hBrush = CreateSolidBrush(pRectangle->brushColor);
+	HBRUSH hBrush = CreateSolidBrush(grectangle->brushColor);
 	HBRUSH hBrushOld = (HBRUSH)SelectObject(hdc, hBrush);
-	RECT rect = pRectangle->rect;
+	RECT rect = grectangle->rect;
 	Rectangle(hdc, rect.left, rect.top, rect.right, rect.bottom);
 	SelectObject(hdc, hPenOld);
 	DeleteObject(hPen);
@@ -45,3 +45,28 @@ void DrawMyRectangle(HDC hdc, PRECTANGLE pRectangle)
 	DeleteObject(hBrush);
 }
 
+COLORREF GetMyColor(HWND hWnd)
+{
+	CHOOSECOLOR  cc;
+	COLORREF     crCustomColors[16];
+	COLORREF     crText = RGB (0, 0, 0);
+
+	cc.lStructSize    = sizeof (CHOOSECOLOR);
+	cc.hwndOwner      = hWnd;
+	cc.hInstance      = NULL;
+	cc.rgbResult      = RGB (0, 0, 0);
+	cc.lpCustColors   = crCustomColors;
+	cc.Flags          = CC_RGBINIT | CC_FULLOPEN;
+	cc.lCustData      = 0;
+	cc.lpfnHook       = NULL;
+	cc.lpTemplateName = NULL;
+
+	if (ChooseColor (&cc))
+	{
+		crText = crCustomColors[0];
+		InvalidateRect (hWnd, NULL, TRUE);
+
+		return crText;
+	}
+	return FALSE;
+}

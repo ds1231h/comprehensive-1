@@ -15,8 +15,8 @@ MYELLIPSE gellipse[1024] =
 
 MYRECTANGLE grectangle[1024] = 
 {
-	{{25, 25}, RGB(125, 64, 35), RGB(125, 64, 35), 0, PS_SOLID},
-	{{75, 75}, RGB(125, 64, 35), RGB(125, 64, 35), 0, PS_SOLID},
+	{{25,25, 50, 50}, RGB(125, 64, 35), RGB(125, 64, 35), 0, PS_SOLID},
+	{{50, 50, 75, 75}, RGB(125, 64, 35), RGB(125, 64, 35), 0, PS_SOLID},
 };
 
 MYLINE gNewlines[1024] = {NULL};
